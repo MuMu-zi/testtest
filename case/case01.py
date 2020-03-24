@@ -24,27 +24,27 @@ class Test_01(unittest.TestCase):
         print('case1')
     #
     #
-    # def test_2(self):
-    #     response = requests.request(method='get',url='http://www.httpbin.org/get')
-    #     self.assertEqual(response.status_code, 200)
-    #     a = response.json()
-    #     # print(a)
-    #     # self.assertEqual(a['origin'],'42.238.209.67',msg='失败')
-    #     self.assertEqual(a['args'],{})   # 验证value为空
+    def test_2(self):
+        response = requests.request(method='get',url='http://www.httpbin.org/get')
+        self.assertEqual(response.status_code, 200)
+        a = response.json()
+        # print(a)
+        # self.assertEqual(a['origin'],'42.238.209.67',msg='失败')
+        self.assertEqual(a['args'],{})   # 验证value为空
 
     #
-    # def test_3(self):
-    #     url = 'http://www.httpbin.org/post'
-    #     data_dic = {'k1':'v1'}
-    #     response = requests.post(url=url, data=data_dic)
-    #     self.assertEqual(response.json()['url'], "http://www.httpbin.org/post")
+    def test_3(self):
+        url = 'http://www.httpbin.org/post'
+        data_dic = {'k1':'v1'}
+        response = requests.post(url=url, data=data_dic)
+        self.assertEqual(response.json()['url'], "http://www.httpbin.org/post")
 
 
 
 
 
 #
-# if __name__ == '__main__':
-#     unittest.main()
-# # 将单元测试模块变成可以运行的测试脚本
+if __name__ == '__main__':
+    unittest.main()
+# 将单元测试模块变成可以运行的测试脚本
 

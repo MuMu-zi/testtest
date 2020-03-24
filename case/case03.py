@@ -7,15 +7,41 @@
 import unittest
 import requests
 
+import requests
+import unittest
+from time import sleep
+
 class Test_03(unittest.TestCase):
+    def setUp(self):
+       pass
 
-    def test_3(self):
+    #正常查询长沙的天气，断言
+    def test_weather_changsha(self):
+        r=requests.get('http://t.weather.sojson.com/api/weather/city/101250101')
+        result= r.json()
 
-        url = 'http://www.httpbin.org/post'
-        data_dic = {'k1':'v1'}
-        response = requests.post(url=url, data=data_dic)
-        print(response.json())
-        print('case3')
+        #断言
+        self.assertEqual(result['status'],200)
+        self.assertIn('success', result['message'])
+        self.assertEqual(result['cityInfo']['city'],'长沙市')
+        #设置间隔时间，避免IP被封，这个接口本身有限制的
+        sleep(3)
 
-# if __name__ == '__main__':
-#     unittest.main()
+    # 不传city_code，断言
+    def test_weather_no_reference(self):
+        r=requests.get('http://t.weather.sojson.com/api/weather/city/')
+        result=r.json()
+        self.assertEqual(result['status'], 404)
+        self.assertEqual(result['message'], 'Request resource not found.')
+        sleep(3)
+
+    #传入一个不存在的city_code，断言
+    def test_weather_reference_error(self):
+        r=requests.get('http://t.weather.sojson.com/api/weather/city/100250101')
+        result = r.json()
+        self.assertEqual(result['status'], 400)
+        self.assertEqual(result['message'], '获取失败')
+        sleep(3)
+
+if __name__ == '__main__':
+    unittest.main()
